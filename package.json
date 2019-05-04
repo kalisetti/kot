@@ -1,0 +1,33 @@
+{
+  "name": "kot",
+  "version": "1.0.0",
+  "description": "Kitchen Order Ticket System",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalisetti/kot.git"
+  },
+  "keywords": [
+    "kot",
+    "restaurant",
+    "hotel"
+  ],
+  "author": "SivaSankar K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalisetti/kot/issues"
+  },
+  "homepage": "https://github.com/kalisetti/kot#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "mysql": "^2.17.1",
+    "socket.io": "^2.2.0"
+  }
+}
