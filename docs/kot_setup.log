@@ -1,0 +1,26 @@
+--
+-- Git setup
+--
+
+cd C:\SANKAR\Dropbox\WORKING\myprojects\nodejs
+
+C:\SANKAR\Dropbox\WORKING\myprojects\KOT>git --version
+git version 2.19.1.windows.1
+
+C:\SANKAR\Dropbox\WORKING\myprojects\KOT>git config --global user.name "SivaSankar K"
+C:\SANKAR\Dropbox\WORKING\myprojects\KOT>git config --global user.email "sivasankar.k2003@gmail.com"
+C:\SANKAR\Dropbox\WORKING\myprojects\KOT>git config --list
+
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs>git clone https://github.com/kalisetti/kot.git
+
+cd C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot
+--
+-- Basic Setup 
+--
+
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm init
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save express socket.io mysql
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install -g nodemon
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save express-session
+
+
