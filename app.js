@@ -1,4 +1,5 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var session = require('express-session');
@@ -20,6 +21,8 @@ app.use(session({
 }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use(express.static('assets'));
 
 app.get('/', function(req, res){
 	//res.sendFile('index.html', {"root": __dirname});
