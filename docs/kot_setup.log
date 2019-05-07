@@ -36,4 +36,8 @@ C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot>jx package app.js kot
 
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save pug
 
+--
+-- Notifications
+--
 
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save node-notifier

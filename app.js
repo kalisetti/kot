@@ -8,6 +8,9 @@ var path 			= require('path');
 var mysql 			= require('mysql');
 var cookieParser 	= require('cookie-parser');
 
+// Notifications
+const notifier 		= require('node-notifier');
+
 var things = require('./things.js');
 //both app.js and things.js should be in same directory
 app.use('/things', things)
@@ -107,4 +110,15 @@ app.get('*', function(req, res){
 
 http.listen(3000, function(){
 	console.log('listening on *:3000');
+	notifier.notify({
+		'title': 'KITCHEN ORDER TICKET SYSTEM',
+		'message': 'Listening on *:3000',
+		'icon': path.join(__dirname, 'assets/images/cupicon.gif'),
+		sound: true, // Only Notification Center or Windows Toasters
+		wait: true // Wait with callback, until user action is taken against notification
+	}, function(err, res){
+		// Response is response from notification
+		console.log('Notifier response ');
+		console.log(res);
+	});
 });
