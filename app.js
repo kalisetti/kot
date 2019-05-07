@@ -1,11 +1,16 @@
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var path = require('path');
-var mysql = require('mysql');
+var express 		= require('express');
+var app 			= express();
+var http 			= require('http').Server(app);
+var io 				= require('socket.io')(http);
+var session 		= require('express-session');
+var bodyParser 		= require('body-parser');
+var path 			= require('path');
+var mysql 			= require('mysql');
+var cookieParser 	= require('cookie-parser');
+
+var things = require('./things.js');
+//both app.js and things.js should be in same directory
+app.use('/things', things)
 
 var con = mysql.createConnection({
 	host : 'localhost',
@@ -22,15 +27,19 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+// Adding assets like images,css and js
 app.use(express.static('assets'));
 
+// Cookies
+app.use(cookieParser());
+
 app.get('/', function(req, res){
-	//res.sendFile('index.html', {"root": __dirname});
 	if (req.session.loggedin){
 		res.send('Welcome back, '+ req.session.username + '!')
 	} else {
-		res.sendFile(path.join(__dirname + '/login.html'));
+		res.sendFile(path.join(__dirname, '/login.html'));
 	}
+	//console.log("Cookies: ", req.cookies);
 });
 
 app.get('/auth', function(req, res){
@@ -87,6 +96,14 @@ io.on('connection', function(socket){
 	});
 });
 */
+
+//Other routes here
+//Important - This should be placed after all your routes, as Express matches
+//    routes from start to end of the app.js/index.js file, including the 
+//	  external routers you required.
+app.get('*', function(req, res){
+	res.send('Sorry, this is an invalid URL.');
+});
 
 http.listen(3000, function(){
 	console.log('listening on *:3000');

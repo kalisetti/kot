@@ -24,5 +24,16 @@ C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install -g nodemon
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save express-session
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save body-parser cookie-parser multer
 
+--
+-- Packaging
+--
+
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot>jx package app.js kot
+
+--
+-- Templating Engine
+--
+
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save pug
 
 
