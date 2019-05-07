@@ -1,0 +1,14 @@
+html
+	head
+		title=name
+	body
+		h1=name
+		h1 Greetings from #{name}
+		a(href=url) Click Here
+		
+		// Conditionals
+		if(user)
+			h1 Hi, #{user.name}
+		else
+			br
+			a(href = "/sign_up") Sign Up

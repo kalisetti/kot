@@ -41,3 +41,13 @@ C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save pug
 --
 
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save node-notifier
+
+--
+-- npm module to create system tray apps on windows
+--
+
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save tray-windows
+
+Error: The edge module has not been pre-compiled for node.js version v10.15.3. You must build a custom version of edge.node. Please refer to https://github.com/tjanczuk/edge for building instructions.
+
+
