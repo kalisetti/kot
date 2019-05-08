@@ -25,6 +25,63 @@ C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save express-sess
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save body-parser cookie-parser multer
 
 --
+-- Demonizing
+--
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install pm2 -g
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install pm2-windows-service -g
+
+-- Error while creating service(Updating the versions)
+npm install -g npm-check-updates
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot>cd C:\Users\Phoenix\AppData\Roaming\npm
+C:\Users\Phoenix\AppData\Roaming\npm\node_modules\pm2-windows-service>ncu inquirer -u
+Upgrading C:\Users\Phoenix\AppData\Roaming\npm\node_modules\pm2-windows-service\package.json
+[====================] 1/1 100%
+
+ inquirer  ^1.1.2  →  ^6.3.1
+
+Run npm install to install new versions.
+
+
+C:\Users\Phoenix\AppData\Roaming\npm\node_modules\pm2-windows-service>npm install
+npm notice created a lockfile as package-lock.json. You should commit this file.
+added 18 packages from 25 contributors, removed 16 packages, updated 12 packages and audited 197 packages in 17.3s
+found 0 vulnerabilities
+
+-- Creating service
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot>pm2-service-install -n KOT
+? Perform environment setup (recommended)? Yes
+? Set PM2_HOME? Yes
+? PM2_HOME value (this path should be accessible to the service user and
+should not contain any "user-context" variables [e.g. %APPDATA%]):
+? Set PM2_SERVICE_SCRIPTS (the list of start-up scripts for pm2)? Yes
+? Set the list of startup scripts/files (semi-colon separated json config
+files or js files)
+? Set PM2_SERVICE_PM2_DIR (the location of the global pm2 to use with the service)? [recommended] Yes
+? Specify the directory containing the pm2 version to be used by the
+service C:\USERS\PHOENIX\APPDATA\ROAMING\NPM\node_modules\pm2\index.js
+PM2 service installed and started.
+
+-- pm2 Examples
+pm2 start app.js --name KOT
+pm2 ls
+pm2 stop KOT
+pm2 start KOT
+pm2 restart KOT
+pm2 restart app1 app2 app3 (Or) pm2 restart /app/
+
+--Save your process list
+# Save your list in hard disk memory
+pm2 save
+
+# resurrect your list previously saved
+pm2 resurrect
+
+# Local monitoring
+pm2 monit
+
+
+
+--
 -- Packaging
 --
 
