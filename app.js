@@ -73,7 +73,7 @@ app.get('/', function(req, res){
 	// Setting a cookie
 	res.cookie('name', 'express'); //Sets name=express
 	res.cookie('silly', 'feeling silly', {maxAge: 60000}); //This cookies expires after 60000ms from the time it is set
-	res.clearCookie('foo'); //Deleting Existing Cookies
+	res.clearCookie('foo'); //Deleting Existing Cookies 
 	
 	if (req.session.loggedin){
 		res.send('Welcome back, '+ req.session.username + '!')
