@@ -108,3 +108,9 @@ C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save tray-windows
 Error: The edge module has not been pre-compiled for node.js version v10.15.3. You must build a custom version of edge.node. Please refer to https://github.com/tjanczuk/edge for building instructions.
 
 
+--
+-- Performance Testing
+--
+
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save siege
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> node performanceTest.js
