@@ -301,7 +301,14 @@ router.get('/logout',function(req,res){
 app.use('/',router);
 
 // Run Server
+/*
 http.listen(conf.app_port, conf.app_host, function(){
+	console.log('listening on *:',conf.app_port);
+	notifyUser();
+});
+*/
+
+http.listen(process.env.PORT || 3000, function(){
 	console.log('listening on *:',conf.app_port);
 	notifyUser();
 });
