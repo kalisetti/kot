@@ -1,6 +1,8 @@
 //Database connection and configuration
 var mysql = require('mysql');
 
+// Always use MySQL pooling.
+// Helpful for multiple connections.
 var pool = mysql.createPool({
 	connectionLimit: 100, //important
 	host 	: 'localhost',
@@ -10,23 +12,37 @@ var pool = mysql.createPool({
 	debug 	: false
 });
 
-/*
+//module.exports = pool;
+
 module.exports = {
-	sql: function(query){
-		pool.query(query, function(err,rows){
+	query: function(){
+		var sql_args = [];
+		var args = [];
+		
+		for(var i=0; i<arguments.length; i++){
+			args.push(arguments[i]);
+		}
+		
+		var callback = args[args.length-1]; //last arg is call back
+		pool.getConnection(function(err, connection){
 			if(err){
-				console.log('Error occured',err);
-				//return res.json({"error": true, 'message': 'Error occured '+err, 'code': err.code});
-				return {"error": true, 'message': 'Error occured '+err, 'code': err.code}
+				//console.log('MYERROR',err);
+				//console.log('DB_ERROR',err.errno,err.sqlMessage);
+				return callback(err);
 			}
 			
-			//connection will be released as well.
-			console.log('Your data',rows);
-			//res.json(rows);
-			return (rows);
+			if(args.length > 2){
+				sql_args = args[1];
+			}
+			
+			connection.query(args[0], sql_args, function(err, results){
+				connection.release();
+				if(err){
+					//console.log(err);
+					return callback(err);
+				}
+				callback(null, results);
+			});
 		});
 	}
-}
-*/
-
-module.exports = pool;
+};

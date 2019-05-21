@@ -23,6 +23,7 @@ C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save express sock
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install -g nodemon
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save express-session
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save body-parser cookie-parser multer
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save async
 
 --
 -- Demonizing
@@ -114,3 +115,12 @@ Error: The edge module has not been pre-compiled for node.js version v10.15.3. Y
 
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save siege
 C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> node performanceTest.js
+
+--
+-- Redis and service creation
+--
+
+C:\Program Files\nssm-2.24\win64> nssm.exe install Redis-Server
+
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save redis
+C:\SANKAR\Dropbox\WORKING\myprojects\nodejs\kot> npm install --save connect-redis

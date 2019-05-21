@@ -1,4 +1,11 @@
 {
  "app_host": "localhost",
- "app_port": 3000
+ "app_port": 3000,
+ "app_title": "KITCHEN ORDER TICKET SYSTEM",
+ "app_icon": "assets/images/cupicon.gif",
+ "db_host": "localhost",
+ "db_user": "kot",
+ "db_password": "kot",
+ "db_database": "kot",
+ "db_connectionLimit": 100
 }

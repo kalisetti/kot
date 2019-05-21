@@ -1,0 +1,53 @@
+html
+	head
+		title Home
+		// Latest compile and minified CSS
+		link(rel="stylesheet",href="css/bootstrap.min.css")
+		// Optional theme
+		link(rel="stylesheet",href="css/bootstrap-theme.min.css")
+		script(src="js/jquery-3.4.1.min.js")
+		// Latest compiled and minied JavaScript
+		script(src="js/bootstrap.min.js")
+		script.
+			$(document).ready(function(){
+				$.get("/fetchStatus",function(res){
+					if(!res.error){
+						$.each(res.message, function(index,value){
+							$("#showStatus").append('You have posted<br><p>'+value.user_status+'</p><hr>');
+						});
+					} else {
+						alert(res.message);
+					}
+				});
+				$("#addNewStatus").click(function(e){
+					e.preventDefault();
+					if($("#statusbox").text !== ""){
+						$.post("/addStatus",
+							{
+								status: $("#statusbox").val()
+							},
+							function(res){
+								if(!res.error){
+									alert(res.message);
+								}
+							}
+						);
+					}
+				});
+			});
+	body
+		nav(class="navbar navbar-default navbar-fixed-top")
+			div(class="navbar-header")
+				a(class="navbar-brand" href="#")
+					p Redis session demo
+			div(class="container")
+				p(class="navbar-text navbar-right") Hi you are login as 
+					b=email
+					a(href="/logout") (Logout)
+			
+		div(style="margin-top:100px;margin-left:50px;width:400px;")
+			textarea(rows="10",cols="5",id="statusbox",class="form-control")
+			br
+			input(type="submit",id="addNewStatus",value="Post",class="btn btn-primary")
+			br
+			div(id="showStatus",style="border:2px grey; border-radius: 4px;")
