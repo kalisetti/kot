@@ -103,18 +103,29 @@ html
 				});
 			});
 	body
+	
+		nav(class="navbar navbar-default navbar-fixed-top")
+			div(class="container-fluid")
+				div(class="navbar-header")
+					a(class="navbar-brand" href="/") iFusion Solutions
+						
+				ul(class="nav navbar-nav")
+					li(class="active")
+						a(href="/") Home
+					li
+						a(href="/counter") Counter
+					li
+						a(href="/kitchen") Kitchen
+					li
+						a(href="/contact") Contact
+						
+				div(class="container")
+					p(class="navbar-text navbar-right") Please <a href="/index">Sign In</a>
+		
 		div(class="jumbotron text-center")
 			h1 My Hotel Menu
 			p Resize this responsive page to see the effect!
 		
-		nav(class="navbar navbar-default navbar-fixed-top")
-			div(class="navbar-header")
-				a(class="navbar-brand" href="#")
-					p Redis session demo
-			div(class="container")
-				p(class="navbar-text navbar-right") Please <a href="/index">Sign In</a>
-		
-			
 		div(class="form-group form-inline",style="margin: 0px;")
 			//label(for="menu") Menu
 			//select(id="menu",class="form-control")
