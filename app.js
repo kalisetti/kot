@@ -308,8 +308,9 @@ http.listen(conf.app_port, conf.app_host, function(){
 });
 */
 
-http.listen(process.env.PORT || 3000, function(){
-	console.log('listening on *:',conf.app_port);
+http.listen(conf.app_port || 3000, function(){
+	var test = process.env.PORT || 3000;
+	console.log('listening on *:',test);
 	notifyUser();
 });
 
