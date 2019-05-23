@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+html
+	head
+		title KOT Desk
+		meta(name="viewport",content="width=device-width, initial-scale=1.0")
+		// Latest compile and minified CSS
+		link(rel="stylesheet",href="css/bootstrap.min.css")
+		// Optional theme
+		link(rel="stylesheet",href="css/bootstrap-theme.min.css")
+		script(src="js/jquery-3.4.1.min.js")
+		// Latest compiled and minied JavaScript
+		script(src="js/bootstrap.min.js")
+		
+		script.
+			$(document).ready(function(){
+				var id = 1;
+				$("#demo").find(".row").append('<div class="col-sm-6" id="'+id+'"></div>');
+				$("#demo").find("#"+id).append('<div class="panel panel-default"></div>');
+				$("#demo").find("#"+id).find(".panel-default").append('<div class="panel-heading">'+'GROUP'+id+'</div>');
+				
+				id += 1;
+				$("#demo").find(".row").append('<div class="col-sm-6" id="'+id+'"></div>');
+				$("#demo").find("#"+id).append('<div class="panel panel-default"></div>');
+				$("#demo").find("#"+id).find(".panel-default").append('<div class="panel-heading">'+'GROUP'+id+'</div>');
+				
+				id += 1;
+				$("#demo").find(".row").append('<div class="col-sm-6" id="'+id+'"></div>');
+				$("#demo").find("#"+id).append('<div class="panel panel-default"></div>');
+				$("#demo").find("#"+id).find(".panel-default").append('<div class="panel-heading">'+'GROUP'+id+'</div>');
+				
+				id += 1;
+				$("#demo").find(".row").append('<div class="col-sm-6" id="'+id+'"></div>');
+				$("#demo").find("#"+id).append('<div class="panel panel-default"></div>');
+				$("#demo").find("#"+id).find(".panel-default").append('<div class="panel-heading">'+'GROUP'+id+'</div>');
+				
+				$("#demo").find("#"+2).find(".panel-default").append('<div class="panel-body">Body</div>');
+			});
+	body
+		h1 This is a test page
+		div(class="container")
+			div(class="row")
+				div(class="col-sm-6") COLUMN1
+				div(class="col-sm-6") COLUMN2
+				div(class="col-sm-6") COLUMN3
+				div(class="col-sm-6") COLUMN4
+				div(class="col-sm-6") COLUMN5
+				div(class="col-sm-6") COLUMN6
+				div(class="col-sm-6") COLUMN7
+				div(class="col-sm-6") COLUMN8
+				div(class="col-sm-6") COLUMN9
+				div(class="col-sm-6") COLUMN10
+		div(class="container",id="demo")
+			div(class="row")
