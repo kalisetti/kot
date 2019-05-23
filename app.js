@@ -138,6 +138,9 @@ function handle_database(req,type,callback){
 	--- Router Code begins here. 
 **/
 
+router.get('/test',function(req,res){
+	res.render('test');
+});
 
 router.get('/',function(req,res){
 	res.render('desk');
@@ -190,7 +193,7 @@ router.post('/getFullMenu',function(req,res){
 		cond += " and item_category = '"+req.body.item_category+"'";
 	}
 	
-	db.query("select * from tab_menu_group_item where menu = '"+req.body.menu+"' "+cond, function(err, results){
+	db.query("select * from tab_menu_group_item where menu = '"+req.body.menu+"' "+cond+"order by menu_group, idx", function(err, results){
 		if(err){
 			//console.log('DB_ERROR',err.errno,err.sqlMessage); 
 			res.json({"error": true, "message": err});
