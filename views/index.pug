@@ -48,16 +48,20 @@ html
 	body
 		include ./navheader.pug
 		
-		div(class="container",style="margin: 100px auto; width: 400px;")
+		div(class="container",style="margin: 100px auto;")
 			//div(class="form-group",style="margin-top: 100px; width: 400px; margin-left: 500px;")
-			div(class="form-group")
-				input(type="text",id="username",placeholder="Name",class="form-control")
-				br
-				input(type="text",id="useremail",placeholder="Email",class="form-control")
-				br
-				input(type="password",id="password",placeholder="Password",class="form-control")
-				br
-				input(type="button",id="login-submit",value="Log In",class="btn btn-primary") 
-				a(href="",id="reg") Sign up here
+			div(class="row")
+				div(class="col-sm-4")
+				div(class="col-sm-4")
+					div(class="form-group")
+						input(type="text",id="username",placeholder="Name",class="form-control")
+						br
+						input(type="text",id="useremail",placeholder="Email",class="form-control")
+						br
+						input(type="password",id="password",placeholder="Password",class="form-control")
+						br
+						input(type="button",id="login-submit",value="Log In",class="btn btn-primary") 
+						a(href="",id="reg") Sign up here
+				div(class="col-sm-4")
 			
 		
