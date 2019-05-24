@@ -80,7 +80,7 @@ html
 									item += 	'<div class="row">';
 									item += 		'<div class="col-xs-4">'+value.name+'</div>';
 									item += 		'<div class="col-xs-4">Nu.'+value.rate+'</div>';
-									item += 		'<div class="col-xs-4"></div>';
+									item += 		'<div class="col-xs-4">'+$("#qtyButtonsX").html()+'</div>';
 									item += 	'</div>';
 									item += '</div>';
 									$("#demo").find("#"+id).find(".panel-default").append(item);
@@ -128,3 +128,13 @@ html
 
 		div(class="container",id="demo") 
 		
+		div(class="input-group",id="qtyButtons")
+			span(class="input-group-btn")
+				button(type="button",class="btn btn-danger btn-number",data-type="minus",data-field="quant[2]")
+					span(class="glyphicon glyphicon-minus")
+			input(type="text",name="quant[2]",class="form-control input-number",value="10",min="1",max="100")
+			span(class="input-group-btn")
+				button(type="button",class="btn btn-success btn-number",data-type="plus",data-field="quant[2]")
+					span(class="glyphicon glyphicon-plus")
+		
+		include ./navfooter.pug
