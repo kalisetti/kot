@@ -174,7 +174,7 @@ router.get('/getItemCategory',function(req,res){
 	db.query('select * from tab_item_category', function(err, results){
 		if(err){
 			//console.log('DB_ERROR',err.errno,err.sqlMessage);
-			res.json({"error": true, "message": err});
+			res.json({"error": true, "message": err.sqlMessage});
 		} else {
 			//console.log(results);
 			res.json({"error": false, "message": results});
@@ -208,6 +208,7 @@ router.get('/index',function(req,res){
 	res.render('index');
 });
 
+/*
 router.get('/getMenu',function(req,res){
 	handle_database(req,"getMenu",function(response){
 		if(response === null){
@@ -221,6 +222,7 @@ router.get('/getMenu',function(req,res){
 		}
 	});
 });
+*/
 
 router.post('/login', function(req,res){
 	handle_database(req,"login",function(response){

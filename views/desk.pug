@@ -78,9 +78,9 @@ html
 									var item = "";
 									item += '<div class="panel-body" style="padding: 5px 5px 5px 15px; border-bottom: 1px solid #ddd;">';
 									item += 	'<div class="row">';
-									item += 		'<div class="col-xs-4">'+value.name+'</div>';
-									item += 		'<div class="col-xs-4">Nu.'+value.rate+'</div>';
-									item += 		'<div class="col-xs-4">'+$("#qtyButtonsX").html()+'</div>';
+									item += 		'<div class="col-xs-5">'+value.name+'</div>';
+									item += 		'<div class="col-xs-3" style="padding:0;" data-rate="'+value.rate+'">'+'Nu. '+value.rate+'/-'+'</div>';
+									item += 		'<div class="col-xs-4" style="padding: 0 0;">'+$("#qtyButtons").html()+'</div>';
 									item += 	'</div>';
 									item += '</div>';
 									$("#demo").find("#"+id).find(".panel-default").append(item);
@@ -121,25 +121,28 @@ html
 				});
 			});
 	body
-		include ./navheader.pug
-		
-		div(class="form-group form-inline",style="margin-top: 60px; margin-left: 50px;")
-			<select id="menu" class="form-control"></select>		
-			select(id="item_type",class="form-control")
-				<option value="All" selected>All</option> 
-			select(id="item_category",class="form-control")
-				<option value="All" selected>All</option>
-			input(class="form-control",id="myInput",type="text",placeholder="Search...")
+		div(class="container-fluid")
+			include ./navheader.pug
+			
+			div(class="container")
+				div(class="form-group form-inline",style="margin-top: 60px;").
+					<select id="menu" class="form-control"></select>		
+					<select id="item_type" class="form-control">
+						<option value="All" selected>All</option>
+					</select>
+					<select id="item_category" class="form-control">
+						<option value="All" selected>All</option>
+					</select>	
+					<input class="form-control" id="myInput" type="text" placeholder="Search...">
 
-		div(class="container",id="demo") 
-		
-		div(class="input-group",id="qtyButtons",style="display: none")
-			span(class="input-group-btn")
-				button(type="button",class="btn btn-danger btn-number",data-type="minus",data-field="quant[2]")
-					span(class="glyphicon glyphicon-minus")
-			input(type="text",name="quant[2]",class="form-control input-number",value="10",min="1",max="100")
-			span(class="input-group-btn")
-				button(type="button",class="btn btn-success btn-number",data-type="plus",data-field="quant[2]")
-					span(class="glyphicon glyphicon-plus")
-		
-		include ./navfooter.pug
+			div(class="container",id="demo") 
+			
+			div(id="qtyButtons",style="display:None;")
+				div(class="form-group form-inline",style="margin:0;")
+						button(type="button",class="btn btn-danger btn-number btn-xs",style="margin:0px;border-radius:3px 0px 0px 3px;",disabled="disabled",data-type="minus",data-field="quant[1]")
+							span(class="glyphicon glyphicon-minus")
+						input(type="text",name="quant[1]",class="form-control input-number",style="margin:0px; padding:6px 3px; display:inline-block; height: 22px; width: 40px;border-radius:0px;",value="0",min="0",max="100")
+						button(type="button",class="btn btn-success btn-number btn-xs",style="margin:0px;border-radius:0px 3px 3px 0px;",data-type="plus",data-field="quant[1]")
+							span(class="glyphicon glyphicon-plus")
+						
+			include ./navfooter.pug
