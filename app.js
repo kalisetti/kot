@@ -52,6 +52,7 @@ var controllers = require('./controllers');
 controllers.set(app);
 */
 
+/*
 // This is an important function.
 // This function does the database handling task.
 // We also use async here for control flow.
@@ -133,6 +134,7 @@ function handle_database(req,type,callback){
 		}
 	);
 }
+*/
 
 /**
 	--- Router Code begins here. 
@@ -142,8 +144,18 @@ router.get('/test',function(req,res){
 	res.render('test');
 });
 
+router.get('/kitchen',function(req,res){
+	if(req.session.key){
+		res.render('desk', {name: req.session.key.name});
+	} else {
+		res.json({"error": true, "message": "Sorry, you do not have permissions to access this resource"});
+	}
+});
+
 router.get('/',function(req,res){
-	res.render('desk');
+	var name;
+	if(req.session.key) name = req.session.key.name;
+	res.render('desk', {name: name});
 });
 
 router.get('/getMenu',function(req,res){
@@ -204,9 +216,6 @@ router.post('/getFullMenu',function(req,res){
 	});
 });
 
-router.get('/index',function(req,res){
-	res.render('index');
-});
 
 /*
 router.get('/getMenu',function(req,res){
@@ -224,6 +233,7 @@ router.get('/getMenu',function(req,res){
 });
 */
 
+/*
 router.post('/login', function(req,res){
 	handle_database(req,"login",function(response){
 		if(response === null){
@@ -292,6 +302,40 @@ router.post('/register',function(req,res){
 		}
 	});
 });
+*/
+router.get('/login',function(req,res){
+	if(req.session.key){
+			res.json({"error": true, "message": "You have already logged in. Please logout"});
+	} else {
+		res.render('login');
+	}
+});
+
+router.post('/validateLogin',function(req,res){
+	if(!req.body.user_email){
+		res.json({"error": true, "message": "Email is mandatory to login"});
+	} else if(!req.body.user_password) {
+		res.json({"error": true, "message": "Password is mandatory to login"});
+	} else {		
+		db.query("select * from tab_user where name = '"+req.body.user_email+"' and user_password = '"+req.body.user_password+"'", function(err, results){
+			if(err){
+				//console.log('DB_ERROR',err.errno,err.sqlMessage); 
+				res.json({"error": true, "message": err});
+			} else {
+				if(results.length){					
+					if(results[0].enabled){
+						req.session.key = results[0];
+						res.json({"error": false, "message": results});
+					} else {
+						res.json({"error": true, "message": "Your account has been disabled! Please contact the administrator"});
+					}
+				} else {
+					res.json({"error": true, "message": "Login failed! Invalid Email or Password"});
+				}
+			}
+		});
+	}
+});
 
 router.get('/logout',function(req,res){
 	if(req.session.key){
@@ -301,6 +345,14 @@ router.get('/logout',function(req,res){
 	} else {
 		res.redirect('/');
 	}
+});
+
+//Other routes here
+//Important - This should be placed after all your routes, as Express matches
+//    routes from start to end of the app.js/index.js file, including the 
+//	  external routers you required.
+router.get('*', function(req, res){
+	res.send('Sorry, this is an invalid URL.');
 });
 
 app.use('/',router);
@@ -313,15 +365,16 @@ http.listen(conf.app_port, conf.app_host, function(){
 });
 */
 
-http.listen(process.env.PORT || 3000, function(){
-	console.log('listening on *:',process.env.PORT || 3000);
-	notifyUser();
+http.listen(process.env.PORT || conf.app_port, function(){
+	var app_port = process.env.PORT || conf.app_port;
+	console.log('listening on *:', app_port);
+	notifyUser(app_port);
 });
 
-function notifyUser() {
+function notifyUser(app_port) {
 	notifier.notify({
 		'title': conf.app_title,
-		'message': 'Listening on *:'+conf.app_port,
+		'message': 'Listening on *:'+app_port,
 		'icon': path.join(__dirname, conf.app_icon),
 		sound: true, 								// Only Notification Center or Windows Toasters
 		wait: true 									// Wait with callback, until user action is taken against notification

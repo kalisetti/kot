@@ -113,17 +113,25 @@ html
 					getFullMenu();
 				});
 				
-				$("#myInput").on("keyup", function(){
+				$("#mySearch").on("keyup", function(){
 					var value = $(this).val().toLowerCase();
+					var menu_groups = [];
 					$(".panel-default .panel-body").filter(function(){
 						$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+						if(menu_groups.indexOf($(this).parent().parent().get(0).id) < 0 && ($(this).text().toLowerCase().indexOf(value) > -1)){
+							menu_groups.push($(this).parent().parent().get(0).id);
+						}
+					});
+									
+					$(".panel-default").parent().each(function(i, obj){
+						$(this).toggle(menu_groups.indexOf($(this).get(0).id) > -1);
 					});
 				});
 			});
 	body
 		div(class="container-fluid")
 			include ./navheader.pug
-			
+						
 			div(class="container")
 				div(class="form-group form-inline",style="margin-top: 60px;").
 					<select id="menu" class="form-control"></select>		
@@ -133,13 +141,13 @@ html
 					<select id="item_category" class="form-control">
 						<option value="All" selected>All</option>
 					</select>	
-					<input class="form-control" id="myInput" type="text" placeholder="Search...">
+					<input class="form-control" id="mySearch" type="text" placeholder="Search...">
 
 			div(class="container",id="demo") 
 			
 			div(id="qtyButtons",style="display:None;")
 				div(class="form-group form-inline",style="margin:0;")
-						button(type="button",class="btn btn-danger btn-number btn-xs",style="margin:0px;border-radius:3px 0px 0px 3px;",disabled="disabled",data-type="minus",data-field="quant[1]")
+						button(type="button",class="btn btn-danger btn-number btn-xs",style="background:tomato;margin:0px;border-radius:3px 0px 0px 3px;",data-type="minus",data-field="quant[1]")
 							span(class="glyphicon glyphicon-minus")
 						input(type="text",name="quant[1]",class="form-control input-number",style="margin:0px; padding:6px 3px; display:inline-block; height: 22px; width: 40px;border-radius:0px;",value="0",min="0",max="100")
 						button(type="button",class="btn btn-success btn-number btn-xs",style="margin:0px;border-radius:0px 3px 3px 0px;",data-type="plus",data-field="quant[1]")

@@ -1,4 +1,24 @@
 --
+-- User
+--
+
+INSERT INTO `tab_user`(name,user_name,user_email,user_password,enabled,idx,docstatus,owner,creation) values
+	('Admin','Admin','Admin','admin',1,0,0,USER(),NOW()),
+	('Kitchen','Kitchen','Kitchen','kitchen',1,0,0,USER(),NOW()),
+	('Test','Test','Test','test',0,0,0,USER(),NOW()),
+	('Guest','Guest','Guest','guest',1,0,0,USER(),NOW());
+
+--
+-- Role
+--
+
+INSERT INTO `tab_role`(name,role_name,enabled,idx,docstatus,owner,creation) values
+	('Admin','Admin',1,0,0,USER(),NOW()),
+	('Counter','Counter',1,0,0,USER(),NOW()),
+	('Kitchen','Kitchen',1,0,0,USER(),NOW());
+
+
+--
 -- Module
 --
 

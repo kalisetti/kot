@@ -17,6 +17,7 @@ GRANT ALL PRIVILEGES ON kot.* TO 'kot'@'localhost' IDENTIFIED BY 'kot';
 -- 2019/05/11
 --
 
+/*
 CREATE TABLE IF NOT EXISTS `user_login`(
 	`user_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
 	`user_email` VARCHAR(50) NOT NULL COMMENT '',
@@ -27,13 +28,86 @@ CREATE TABLE IF NOT EXISTS `user_login`(
 ENGINE = InnoDB
 AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = latin1;
+*/
 
+CREATE TABLE IF NOT EXISTS `tab_user`(
+	`name` VARCHAR(140),
+	`user_name` VARCHAR(140),
+	`user_email` VARCHAR(140),
+	`user_password` VARCHAR(140),
+	`enabled` INT(1),
+	`idx` INT(8),
+	`docstatus` INT(1),
+	`parent` VARCHAR(140),
+	`parentfield` VARCHAR(140),
+	`parenttype` VARCHAR(140),
+	`_comments` TEXT,
+	`_liked_by` TEXT,
+	`_assign` TEXT,
+	`_user_tags` TEXT,
+	`owner` VARCHAR(140),
+	`creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+	`modified_by` VARCHAR(140),
+	`modified` DATETIME,
+	PRIMARY KEY (`name`) COMMENT ''
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+/*
 CREATE TABLE IF NOT EXISTS `user_status`(
 	`user_id` INT(11) NOT NULL COMMENT '',
 	`user_status` TEXT NOT NULL COMMENT '',
 	`created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
 	INDEX `user_id`(`user_id` ASC) COMMENT '',
 	CONSTRAINT `user_status_ibfk_1` FOREIGN KEY(`user_id`) REFERENCES `user_login`(`user_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+*/
+
+-- Role
+CREATE TABLE IF NOT EXISTS `tab_role`(
+	`name` VARCHAR(140),
+	`role_name` VARCHAR(140),
+	`enabled` INT(1),
+	`idx` INT(8),
+	`docstatus` INT(1),
+	`parent` VARCHAR(140),
+	`parentfield` VARCHAR(140),
+	`parenttype` VARCHAR(140),
+	`_comments` TEXT,
+	`_liked_by` TEXT,
+	`_assign` TEXT,
+	`_user_tags` TEXT,
+	`owner` VARCHAR(140),
+	`creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+	`modified_by` VARCHAR(140),
+	`modified` DATETIME,
+	PRIMARY KEY (`name`) COMMENT ''
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+-- User Role (XXXXXXXXXXXXXXXX IN-PROGRESS XXXXXXXXXXXXXXXX)
+CREATE TABLE IF NOT EXISTS `tab_user_role`(
+	`name` VARCHAR(140),
+	`user` INT(1),
+	`role` INT(1),
+	`idx` INT(8),
+	`docstatus` INT(1),
+	`parent` VARCHAR(140),
+	`parentfield` VARCHAR(140),
+	`parenttype` VARCHAR(140),
+	`_comments` TEXT,
+	`_liked_by` TEXT,
+	`_assign` TEXT,
+	`_user_tags` TEXT,
+	`owner` VARCHAR(140),
+	`creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+	`modified_by` VARCHAR(140),
+	`modified` DATETIME,
+	PRIMARY KEY (`parent`,`name`) COMMENT ''
+)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
