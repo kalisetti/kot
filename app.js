@@ -152,6 +152,13 @@ router.get('/kitchen',function(req,res){
 	}
 });
 
+router.get('/contact',function(req,res){
+	var name;
+	if(req.session.key) name = req.session.key.name;
+	
+	res.render('contact', {name: name});
+});
+
 router.get('/',function(req,res){
 	var name;
 	if(req.session.key) name = req.session.key.name;

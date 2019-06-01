@@ -127,6 +127,19 @@ html
 						$(this).toggle(menu_groups.indexOf($(this).get(0).id) > -1);
 					});
 				});
+				
+				$('body').on('click','.btn-number',function(){
+					var row = $(this);
+					var prevQty = parseInt(row.parent().find("#qty").val());
+					var action = row.attr("data-type"); //plus or minus
+					
+					prevQty = (Number.isInteger(prevQty) ? prevQty : 0);
+					if(action === "minus"){
+						row.parent().find("#qty").val((prevQty <= 0) ? 0 : prevQty-1);
+					} else {
+						row.parent().find("#qty").val((prevQty < 0) ? 0 : prevQty+1);
+					}
+				});
 			});
 	body
 		div(class="container-fluid")
@@ -146,10 +159,10 @@ html
 			div(class="container",id="demo") 
 			
 			div(id="qtyButtons",style="display:None;")
-				div(class="form-group form-inline",style="margin:0;")
+				div(class="form-group form-inline qtyButtons",style="margin:0;")
 						button(type="button",class="btn btn-danger btn-number btn-xs",style="background:tomato;margin:0px;border-radius:3px 0px 0px 3px;",data-type="minus",data-field="quant[1]")
 							span(class="glyphicon glyphicon-minus")
-						input(type="text",name="quant[1]",class="form-control input-number",style="margin:0px; padding:6px 3px; display:inline-block; height: 22px; width: 40px;border-radius:0px;",value="0",min="0",max="100")
+						input(id="qty",type="text",name="quant[1]",maxlength="2",class="form-control input-number",style="margin:0px; padding:6px 3px; display:inline-block; height: 22px; width: 40px;border-radius:0px;",value="0",min="0",max="100")
 						button(type="button",class="btn btn-success btn-number btn-xs",style="margin:0px;border-radius:0px 3px 3px 0px;",data-type="plus",data-field="quant[1]")
 							span(class="glyphicon glyphicon-plus")
 											
