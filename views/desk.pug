@@ -5,6 +5,7 @@ html
 		include ./meta.pug
 		script.
 			$(document).ready(function(){
+				$(".myOrder").hide();
 				// fetch Menu
 				$.get('/getMenu',
 					{},
@@ -77,7 +78,7 @@ html
 								var addRow = function(id, value){
 									var item = "";
 									item += '<div class="panel-body" style="padding: 5px 5px 5px 15px; border-bottom: 1px solid #ddd;">';
-									item += 	'<div class="row">';
+									item += 	'<div class="row itemRow" id="'+getID(value.name)+'">';
 									item += 		'<div class="col-xs-5">'+value.name+'</div>';
 									item += 		'<div class="col-xs-3" style="padding:0;" data-rate="'+value.rate+'">'+'Nu. '+value.rate+'/-'+'</div>';
 									item += 		'<div class="col-xs-4" style="padding: 0 0;">'+$("#qtyButtons").html()+'</div>';
@@ -87,7 +88,8 @@ html
 								}
 								
 								$.each(data.message, function(index,value){
-									var id = value.menu_group.toLowerCase().replace(/ /g,"_");
+									var id = getID(value.menu_group);
+									//var id = value.menu_group.toLowerCase().replace(/ /g,"_");
 																		
 									if(menuGroupId.indexOf(id) < 0){
 										menuGroupId.push(id);
@@ -128,21 +130,80 @@ html
 					});
 				});
 				
+				var getID = function(str){
+					str = str.toLowerCase().replace(/ /g,"_").replace(/[^a-z0-9\s]/gi, '');
+					//return str.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g,'-');
+					return "item"+str;
+				}
+				
+				var updateQty = function(row){
+					var prevQty = parseInt(row.parent().find("#qty").val());
+					var curQty = 0;
+					var action = row.attr("data-type"); //plus or minus
+					prevQty = (Number.isInteger(prevQty) ? prevQty : 0);
+					
+					if(action){
+						if(action === "minus"){
+							curQty = ((prevQty <= 0) ? 0 : prevQty-1);
+							row.parent().find("#qty").val(curQty);
+						} else {
+							curQty = ((prevQty < 0) ? 0 : prevQty+1);
+							row.parent().find("#qty").val(curQty);
+						}
+					} else {
+						// triggered by keyup event, required for toggling display of the orderRow
+						curQty = prevQty;
+					}
+					
+					// Sync items to order
+					var fromRow = "itemRow";
+					var toRow = "orderRow";
+					
+					if(!row.parents(".itemRow").length){
+						fromRow = "orderRow";
+						toRow = "itemRow";
+					}
+					
+					if(fromRow && toRow){
+						var srcRow = row.parents("."+fromRow);
+						var destRow = $("."+toRow+"#"+srcRow.attr("id"));
+						if(destRow.length){
+							destRow.find("#qty").val(srcRow.find("#qty").val());
+						} else {
+							if(toRow == "orderRow" && curQty > 0){
+								$("#myOrderDetails").append('<div class="row orderRow" style="margin: 1px;" id="'+srcRow.attr("id")+'">'+srcRow.html()+'</div>');
+								$("."+toRow+"#"+srcRow.attr("id")).find("#qty").val(curQty);
+							}
+						}
+						
+						// toggle orderRow
+						$(".orderRow"+"#"+srcRow.attr("id")).toggle(curQty > 0);
+					}
+				}
+				
+				$(document).on('keyup',"input#qty",function(event,row){
+					updateQty((row) ? $(row):$(this));
+				});
+
+				// binding click to keyup event
 				$('body').on('click','.btn-number',function(){
 					var row = $(this);
-					var prevQty = parseInt(row.parent().find("#qty").val());
-					var action = row.attr("data-type"); //plus or minus
-					
-					prevQty = (Number.isInteger(prevQty) ? prevQty : 0);
-					if(action === "minus"){
-						row.parent().find("#qty").val((prevQty <= 0) ? 0 : prevQty-1);
-					} else {
-						row.parent().find("#qty").val((prevQty < 0) ? 0 : prevQty+1);
-					}
+					$("#qty").trigger('keyup',row);
+				});
+				
+				// order toggle
+				$("#myOrderBtn").click(function(event){
+					$(".myOrder").toggle('fast');
+					event.preventDefault();
+				});
+				
+				$("#orderTable").click(function(event){
+					event.stopPropagation();
 				});
 			});
 	body
 		div(class="container-fluid")
+			// header
 			include ./navheader.pug
 						
 			div(class="container")
@@ -165,5 +226,22 @@ html
 						input(id="qty",type="text",name="quant[1]",maxlength="2",class="form-control input-number",style="margin:0px; padding:6px 3px; display:inline-block; height: 22px; width: 40px;border-radius:0px;",value="0",min="0",max="100")
 						button(type="button",class="btn btn-success btn-number btn-xs",style="margin:0px;border-radius:0px 3px 3px 0px;",data-type="plus",data-field="quant[1]")
 							span(class="glyphicon glyphicon-plus")
-											
+						
+			// order
+			div(class="row")
+				div(class="col-md-4")
+				div(class="col-md-4 col-sm-6")
+				div(class="col-md-4 col-sm-6 col-xs-12",style="position:fixed; bottom:0; right:0; padding:0px; background:white; border-radius:6px 6px 0px 0px; box-shadow:0 0 10px grey;overflow-y:scroll;max-height:50%;")
+					div 
+						button(id="myOrderBtn",style="width: 100%;margin:0; padding:5px; color: white; background:tomato; border:1px solid tomato; border-radius: 0px;")
+							i(class="fas fa-concierge-bell fa-lg",style="margin: 0px 10px;")
+							b Order Details
+							
+					div(id="myOrder",style="background: #ecb5f37a;border-radius: 6px 6px 0px 0px;")
+						div(id="myOrderHeader",class="myOrder",style="margin:0; padding: 5px;") This is my header
+						div(id="myOrderDetails",class="myOrder",style="margin:0; padding: 5px;")
+							div(class="form-group")
+								input(id="orderTable",class="form-control")
+						div(id="myOrderFooter")
+			// footer
 			include ./navfooter.pug
