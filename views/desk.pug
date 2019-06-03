@@ -171,7 +171,7 @@ html
 							destRow.find("#qty").val(srcRow.find("#qty").val());
 						} else {
 							if(toRow == "orderRow" && curQty > 0){
-								$("#myOrderDetails").append('<div class="row orderRow" style="margin: 1px;" id="'+srcRow.attr("id")+'">'+srcRow.html()+'</div>');
+								$("#myOrderDetails").prepend('<div class="row orderRow" style="margin: 1px;" id="'+srcRow.attr("id")+'">'+srcRow.html()+'</div>');
 								$("."+toRow+"#"+srcRow.attr("id")).find("#qty").val(curQty);
 							}
 						}
@@ -239,9 +239,9 @@ html
 							
 					div(id="myOrder",style="background: #ecb5f37a;border-radius: 6px 6px 0px 0px;")
 						div(id="myOrderHeader",class="myOrder",style="margin:0; padding: 5px;") This is my header
-						div(id="myOrderDetails",class="myOrder",style="margin:0; padding: 5px;")
-							div(class="form-group")
+							div(class="form-group", style="margin-bottom: 5px;")
 								input(id="orderTable",class="form-control")
+						div(id="myOrderDetails",class="myOrder",style="margin:0; padding: 5px;")
 						div(id="myOrderFooter")
 			// footer
 			include ./navfooter.pug

@@ -212,6 +212,17 @@ router.post('/getFullMenu',function(req,res){
 		cond += " and item_category = '"+req.body.item_category+"'";
 	}
 	
+	/*
+	select 
+		t1.menu,
+		t1.menu_group,
+		t1.name,
+		t2.counts 
+	from 
+		`tab_menu_group_item` t1, 
+		(select menu_group,count(*) counts from `tab_menu_group_item` group by menu_group) as t2 
+	where t1.menu_group = t2.menu_group order by t2.counts desc;
+	*/
 	db.query("select * from tab_menu_group_item where menu = '"+req.body.menu+"' "+cond+" order by menu_group, idx", function(err, results){
 		if(err){
 			//console.log('DB_ERROR',err.errno,err.sqlMessage); 
